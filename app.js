@@ -89,41 +89,41 @@ passport.deserializeUser(function (id, done) {
   });
 });
 
-passport.use(
-  new GoogleStrategy(
-    {
-      clientID: process.env.CLIENT_ID,
-      clientSecret: process.env.CLIENT_SECRET,
-      callbackURL: "https://movie-playlist-web.herokuapp.com/auth/google/search",
-      userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
-    },
-    function (accessToken, refreshToken, profile, cb) {
-      console.log(profile);
+//passport.use(
+//  new GoogleStrategy(
+  //  {
+  //    clientID: process.env.CLIENT_ID,
+  //    clientSecret: process.env.CLIENT_SECRET,
+    //  callbackURL: "https://movie-playlist-web.herokuapp.com/auth/google/search",
+    //  userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
+//    },
+  //  function (accessToken, refreshToken, profile, cb) {
+  //    console.log(profile);
 
-      User.findOrCreate({ googleId: profile.id }, function (err, user) {
-        return cb(err, user);
-      });
-    }
-  )
-);
+  //    User.findOrCreate({ googleId: profile.id }, function (err, user) {
+  //      return cb(err, user);
+    //  });
+  //  }
+//  )
+//);
 
 app.get("/", function (req, res) {
   res.render("home");
 });
 
-app.get(
-  "/auth/google",
-  passport.authenticate("google", { scope: ["profile"] })
-);
+//  app.get(
+//   "/auth/google",
+//  passport.authenticate("google", { scope: ["profile"] })
+//);
 
-app.get(
-  "/auth/google/search",
-  passport.authenticate("google", { failureRedirect: "/login" }),
-  function (req, res) {
+//app.get(
+//  "/auth/google/search",
+////  passport.authenticate("google", { failureRedirect: "/login" }),
+//  function (req, res) {
     // Successful authentication, redirect to secrets.
-    res.redirect("/homepage");
-  }
-);
+///    res.redirect("/homepage");
+//  }
+//);
 
 app.get("/login", function (req, res) {
   res.render("login");
